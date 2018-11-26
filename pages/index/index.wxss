@@ -1,0 +1,113 @@
+/**index.wxss**/
+.container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: white;
+}
+.pill {
+  border-bottom: 1px solid #21212110;
+  padding-left: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.pill-title {
+  font-size: 16px;
+  font-weight: bolder;
+}
+.pill-type {
+  font-size: 10px;
+  color: #776262e3;
+}
+.pill:hover {
+  background-color: #21212110;
+}
+.future-tap {
+  width: 100%;
+  height: calc(100% - 60px);
+  position: absolute;
+  background-color: #060606;
+}
+.img {
+  width: 100%;
+  height: 100px;
+  margin-top: 50px;
+}
+
+.time-btn {
+  background-color: #132c33;
+  color: #126e82;
+  width: 80%;
+  margin-top: 20px;
+  font-size: 14px;
+}
+.time-btn:hover {
+  background-color: #DC3446;
+  color: white;
+}
+
+.info {
+  color: #126e82;
+  font-size: 12px;
+  text-align: center;
+  padding: 20px;
+  position: absolute;
+  bottom: 70px;
+}
+
+.bot {
+  width: 100%;
+  height: 60px;
+  position: absolute;
+  bottom: 0;
+  border-top: 0.2px solid #e7e5e5;
+  background-color: #fefefe;
+}
+.bot-item {
+  width: 20%;
+  height: 60px;
+  float: left;
+  text-align: center;
+  line-height: 60px;
+  background: center center no-repeat;
+  overflow: hidden;
+}
+.bot-item image {
+  height: 32px;
+  width: 32px;
+  margin-top: 14px;
+  object-fit: cover;
+}
+#write-tab {
+  background-color: red;
+  border-radius: 100px;
+  position: absolute;
+  bottom: 20px;
+  width: 50px;
+  height: 50px;
+  right: auto;
+  left: calc(50% - 25px);
+}
+#write-tab image {
+  width: 32px;
+  height: 32px;
+  left: 9px;
+  top: -5px;
+  position: absolute;
+}
+.dialog {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: rgba(21, 21, 21, 0.2);
+  z-index: 100;
+}
+.dialog-item {
+  width: 80%;
+  margin-left: 8%;
+  position: absolute;
+  margin-top: 30%;
+  padding: 10px;
+  background-color: white;
+  border-radius: 5px;
+}

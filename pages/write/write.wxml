@@ -1,0 +1,6 @@
+<!--pages/write/write.wxml-->
+<view class='input-container'>
+  <textarea class='input' maxlength='-1'></textarea>
+  <button class='save-btn'>✓</button>
+</view>
+

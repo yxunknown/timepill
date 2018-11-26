@@ -1,0 +1,27 @@
+/* pages/write/write.wxss */
+.input-container { 
+  width: calc(100% - 20px);
+  height: calc(100% - 20px);
+  padding: 10px;
+  background-color: red;
+  overflow: hidden;
+  position: absolute;
+}
+.input {
+  height: 100%;
+  width: 100%;
+  color: white;
+  font-size: 14px;
+}
+.save-btn {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: #28A746;
+  color: white;
+  border: none;
+  border-radius: 40px;
+  z-index: 100;
+}

@@ -1,0 +1,43 @@
+/* pages/selectpill/selectpill.wxss */
+.select {
+  position: absolute;
+  left: 30px;
+  right: 30px;
+  top: 20%;
+  width: calc(100% - 60px);
+}
+.title {
+  font-weight: bolder;
+  font-size: 25px;
+  padding-left: 5px;
+  padding-bottom: 20px;
+}
+.select-item {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  width: 100%;
+  padding-left: 5px;
+}
+.select-item:hover {
+  background-color: #21212110;
+}
+.pill {
+  width: 20px;
+  height: 35px;
+  border-radius: 20px;
+  overflow: hidden;
+  float: left;
+  border: 1px #21212148 solid;
+}
+.pill-bg {
+  width: 20px;
+  height: 19px;
+  margin-top: 16px;
+  background-color: salmon;
+}
+.name {
+  float: left;
+  height: 35px;
+  line-height: 35px;
+  margin-left: 10px;
+}

@@ -1,0 +1,13 @@
+<!--pages/preview/preview.wxml-->
+<view class='preview'>
+  <image class='image' mode='aspectFit' src='https://photo-1253210260.cos.ap-chengdu.myqcloud.com/pills/merry.png'></image>
+  <view class='pill'>
+    <text class='title'>2018-12-23</text>
+    <text class='content' style='color: red;'>
+  我把天空和大地打扫干干净净 
+  归还给一个陌不相识的人 
+  我寂寞地等，我阴沉地等 
+  二月的雪，二月的雨
+    </text>
+  </view>
+</view>

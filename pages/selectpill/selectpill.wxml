@@ -1,0 +1,11 @@
+<!--pages/selectpill/selectpill.wxml-->
+<view class='select'>
+  <text class='title'>選用一粒膠囊</text>
+  <view class='select-item' wx:for="{{pills}}" wx:key='item'>
+    <view class='pill' style='background-color: {{item.fontColor}}'>
+      <view class='pill-bg' style='background-color: {{item.background}};'></view>
+    </view>
+    <view class='name'>{{item.name}}</view>
+    <view style='clear: both;'></view>
+  </view>
+</view>

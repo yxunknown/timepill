@@ -1,0 +1,18 @@
+<!--pages/selectday/selectday.wxml-->
+<view class='select'>
+  <text class='title'>投遞到_</text>
+  <view class='select-item' bindtap='today'>
+    <view class='name' style='color: #FF6347;'>今日</view>
+    <view class='desc'>致最珍貴的自己_</view>
+  </view>
+  <view class='select-item'>
+    <picker mode="date" value="{{date}}" start='{{start}}' bindchange="bindDateChange">
+      <view class='name' style='color: #4B0082;'>未來</view>
+      <view class='desc'>給素未謀面的未來_</view>
+    </picker>
+  </view>
+  <view class='select-item' bindtap='specialDay'>
+    <view class='name' style='color: #2E8B57;'>紀念膠囊</view>
+    <view class='desc'>紀念特別的事物_</view>
+  </view>
+</view>

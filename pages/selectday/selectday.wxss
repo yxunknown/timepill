@@ -1,0 +1,31 @@
+/* pages/selectday/selectday.wxss */
+.select {
+  position: absolute;
+  left: 30px;
+  right: 30px;
+  top: 20%;
+  width: calc(100% - 60px);
+}
+.title {
+  font-weight: bolder;
+  font-size: 25px;
+  padding-left: 5px;
+}
+.select-item {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  width: 100%;
+  padding-left: 5px;
+}
+.select-item:hover {
+  background-color: #21212110;
+}
+.name {
+  width: 100%;
+  margin: 0;
+}
+.desc {
+  width: 100%;
+  font-size: 12px;
+  color: #212121b2;
+}
