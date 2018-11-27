@@ -7,93 +7,89 @@ Page({
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
-    showDialog: false,
-    icons: [
-      '../../icon/pill_active.png',
-      '../../icon/future.png',
-      '../../icon/store.png',
-      '../../icon/info.png'
-    ],
+    showDialog: true,
     currentTab: 0,
-    img: '../../icon/time_machine.png',
   },
-  onLoad: function () {
+  onLoad: function() {
     wx.setNavigationBarTitle({
       title: '膠囊倉庫',
     });
-  },
-  tabClick: function(e) {
-    //switch tab
-    const id = e.target.id;
-    var title = '膠囊倉庫';
-    var tabIndex = 0;
-    switch(id) {
-      case 'pill-tab': {
-        tabIndex = 0;
-        title = '膠囊倉庫';
-        break;
-      }
-      case 'future-tab': {
-        tabIndex = 1;
-        title = '時光機';
-        break;
-      }
-      case 'store-tab': {
-        tabIndex = 2;
-        title = '膠囊製作屋';
-        break;
-      }
-      case 'info-tab': {
-        tabIndex = 3;
-        title = '私人數據';
-        break;
-      }
-      default: {
-        tabIndex = 0;
-        title = '膠囊倉庫';
-      }
-    }
-    if (tabIndex === 1) {
-      wx.setNavigationBarColor({
-        frontColor: '#ffffff',
-        backgroundColor: '#060606',
-      });
-    } else {
-      wx.setNavigationBarColor({
-        frontColor: '#000000',
-        backgroundColor: '#ffffff',
-      });
-    }
-    if (tabIndex === this.data.currentTab) {
-      return false;
-    } else {
-      wx.setNavigationBarTitle({
-        title: '' + title,
-      })
-      var icon = [
-        '../../icon/pill.png',
-        '../../icon/future.png',
-        '../../icon/store.png',
-        '../../icon/info.png'
-      ];
-      var clickIcon = icon[tabIndex];
-      clickIcon = clickIcon.substring(0, clickIcon.length - 4);
-      clickIcon += '_active.png';
-      icon[tabIndex] = clickIcon;
-      this.setData({
-        currentTab: tabIndex,
-        icons: icon,
-      });
-    }
   },
   getPill: function(e) {
     this.setData({
       img: '../../icon/load.gif',
     });
   },
-  toWrite: function(e) {
-    wx.navigateTo({
-      url: '../selectday/selectday',
+  onReady: function() {
+
+  },
+  getUserInfo: function(e) {
+    this.setData({
+      showDialog: false,
     });
-  }
+    wx.showLoading({
+      title: '正在登錄中',
+    });
+    if (e.detail.errMsg === 'getUserInfo:ok') {
+      // get user info success
+      console.log(e);
+      const nickname = e.detail.userInfo.nickName;
+      const profile = e.detail.userInfo.avatarUrl;
+      console.log(nickname);
+      console.log(profile);
+      wx.login({
+        success(res) {
+          if (res.code) {
+            wx.request({
+              url: 'https://mevur.bennkyou.top:8078/pills/login',
+              data: {
+                code: res.code,
+                'nickname': nickname,
+                'profile': profile
+              },
+              header: {
+                'content-type': 'application/x-www-form-urlencoded'
+              },
+              method: 'POST',
+              success(data) {
+                console.log(data);
+                if (data.data.code === 200) {
+                  wx.setStorage({
+                    key: 'user_info',
+                    data: JSON.stringify(data.data.data.user),
+                  });
+                  //todo other thing
+                  wx.hideLoading();
+                } else {
+                  wx.hideLoading();
+                  wx.showToast({
+                    title: '登錄失敗',
+                    icon: 'none',
+                  });
+                }
+              },
+              fail() {
+                wx.hideLoading();
+                wx.showToast({
+                  title: '登錄失敗',
+                  icon: 'none',
+                });
+              }
+            })
+          } else {
+            wx.showToast({
+              title: '登錄失敗',
+              icon: 'none',
+            });
+          }
+        }
+      });
+    } else {
+      wx.showToast({
+        title: '獲取用戶信息失敗',
+        icon: 'none',
+      });
+    }
+  },
+  
 })

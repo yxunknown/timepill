@@ -1,0 +1,33 @@
+/* pages/timemachine/timemachine.wxss */
+
+.future-tap {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: #060606;
+}
+.img {
+  width: 100%;
+  height: 100px;
+  margin-top: 50px;
+}
+
+.time-btn {
+  background-color: #132c33;
+  color: #126e82;
+  width: 80%;
+  margin-top: 20px;
+  font-size: 14px;
+}
+.time-btn:hover {
+  background-color: #DC3446;
+  color: white;
+}
+.info {
+  color: #126e82;
+  font-size: 12px;
+  text-align: center;
+  padding: 20px;
+  position: absolute;
+  bottom: 20px;
+}

@@ -1,0 +1,9 @@
+<!--pages/timemachine/timemachine.wxml-->
+ <view class='future-tap'>
+    <image mode='aspectFit' src='{{img}}' class='img'></image>
+    <button class='time-btn' hover-start-time='10' hover-stay-time='200' bindtap='getPill'>啟動時光機</button>
+    <view class='pills'></view>
+    <view class='info'>
+      你可以乘坐時光機回到過去，打開年代久遠的膠囊. 今日還剩{{times}}次機會
+    </view>
+  </view>

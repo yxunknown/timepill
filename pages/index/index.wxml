@@ -6,48 +6,12 @@
       <view class='pill-type'>平淡的一天</view>
     </view>
   </view>
-
-  <view class='future-tap' wx:if='{{currentTab==1}}'>
-    <image mode='aspectFit' src='{{img}}' class='img'></image>
-    <button class='time-btn' hover-start-time='10' hover-stay-time='200' bindtap='getPill'>啟動時光機</button>
-    <view class='pills'></view>
-    <view class='info'>
-      你可以乘坐時光機回到過去，打開年代久遠的膠囊. 今日還剩{{times}}次機會
+  <view class='dialog card' wx:if="{{showDialog}}">
+    <view class='dialog-item'>
+      <view class='dialog-title'>登錄認證</view>
+      <view class='dialog-info'>膠囊數據經過加密處理，需要登錄後進行同步工作。</view>
+      
+      <button open-type='getUserInfo' bindgetuserinfo='getUserInfo' type='primary' class='wechat-btn'>使用微信登錄</button>
     </view>
-  </view>
-  
-  <!-- todo finish this -->
-  <view class='store-tab' wx:if='{{currentTab==2}}'>
-    <view class='debris-info'>
-
-    </view>
-  </view>
-
-<!-- todo finish this -->
-  <view class='info-tap'></view>
-
-  <view class='bot'>
-    <view class='bot-item'>
-      <image src='{{icons[0]}}' id="pill-tab" bindtap='tabClick'></image>
-    </view>
-    <view class='bot-item'>
-      <image src='{{icons[1]}}' id="future-tab" bindtap='tabClick'></image>
-    </view>
-    <view class='bot-item'>
-      <view id='write-tab' bindtap='toWrite'>
-        <image src='../../icon/write.png'></image>
-      </view>
-    </view>
-    <view class='bot-item'>
-      <image src='{{icons[2]}}' id="store-tab" bindtap='tabClick'></image>
-    </view>
-    <view class='bot-item'>
-      <image src='{{icons[3]}}' id="info-tab" bindtap='tabClick'></image>
-    </view>
-  </view>
-</view>
-<view class='dialog' wx:if="{{showDialog}}">
-  <view class='dialog-item'>
-    sdadad
   </view>
 </view>

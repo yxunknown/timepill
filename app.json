@@ -1,16 +1,52 @@
 {
-  "pages":[
+  "pages": [
     "pages/index/index",
     "pages/logs/logs",
     "pages/preview/preview",
     "pages/selectpill/selectpill",
     "pages/selectday/selectday",
-    "pages/write/write"
+    "pages/write/write",
+    "pages/timemachine/timemachine",
+    "pages/store/store",
+    "pages/info/info"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "tabBar": {
+    "color": "#8a8a8a",
+    "selectedColor": "#DC3446",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "#212121",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "icon/pill.png",
+        "selectedIconPath": "icon/pill_active.png"
+      },
+      {
+        "pagePath": "pages/timemachine/timemachine",
+        "iconPath": "icon/future.png",
+        "selectedIconPath": "icon/future_active.png"
+      },
+      {
+        "pagePath": "pages/selectday/selectday",
+        "iconPath": "icon/write.png",
+        "selectedIconPath": "icon/write.png"
+      },
+      {
+        "pagePath": "pages/store/store",
+        "iconPath": "icon/store.png",
+        "selectedIconPath": "icon/store_active.png"
+      },
+      {
+        "pagePath": "pages/info/info",
+        "iconPath": "icon/info.png",
+        "selectedIconPath": "icon/info_active.png"
+      }
+    ]
+  },
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle": "black"
   }
 }
