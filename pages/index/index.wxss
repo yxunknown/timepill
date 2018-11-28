@@ -52,10 +52,10 @@
   text-align: center;
   color: #212121be;
   width: 100%;
-  font-size: 11px;
-  margin-top: 20px;
+  font-size: 11px
 }
 .wechat-btn {
   font-size: 14px;
   margin-top: 20px;
+  margin-bottom: 20px;
 }

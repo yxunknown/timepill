@@ -5,14 +5,32 @@ Page({
    * Page initial data
    */
   data: {
-
+    pill: {},
+    date: '',
   },
 
   /**
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
-    
+    this.setData({
+      pill: JSON.parse(wx.getStorageSync('pill_select')),
+    });
+    var date = wx.getStorageSync('pill_date');
+    if (date === undefined || date === '') {
+      const d = new Date();
+      const y = d.getFullYear();
+      const m = d.getMonth() + 1;
+      const day = d.getDay();
+      date = y + "-" + m + "-" + d;
+    }
+    this.setData({
+      date: date,
+    });
+    wx.setNavigationBarColor({
+      frontColor: '#ffffff',
+      backgroundColor: this.data.pill.background.toLowerCase(),
+    })
   },
 
   /**

@@ -1,82 +1,109 @@
 // pages/selectpill/selectpill.js
+const http = require('../../utils/http.js');
 Page({
 
   /**
    * Page initial data
    */
   data: {
-    pills: [
-      {
-        name: '平靜的一天',
-        background: '#FF0000',
-        fontColor: '#FFFFFF',
-      },
-      {
-        name: '愉快的一天',
-        background: '#0000FF',
-        fontColor: '#FFFFFF',
-      },
-      {
-        name: '悲傷的一天',
-        background: '#00FF00',
-        fontColor: '#FFFFFF',
-      },
-    ]
+    pills: [],
+    type: 0,
   },
 
   /**
    * Lifecycle function--Called when page load
    */
-  onLoad: function (options) {
-
+  onLoad: function(options) {
+    const pillType = wx.getStorageSync('pill_type');
+    this.setData({
+      type: pillType,
+    });
+    wx.showNavigationBarLoading();
+    http.getAllSkins({
+      start: 0,
+      limit: 20
+    }, (res, err) => {
+      wx.hideNavigationBarLoading();
+      if (res !== undefined && res.data.code === 200) {
+        this.procedure(res.data.data.skins);
+      } else {
+        wx.showToast({
+          title: '加载皮肤失败',
+          icon: 'none',
+          duration: 1000
+        });
+      }
+    });
   },
 
   /**
    * Lifecycle function--Called when page is initially rendered
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * Lifecycle function--Called when page show
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * Lifecycle function--Called when page hide
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * Lifecycle function--Called when page unload
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * Page event handler function--Called when user drop down
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * Called when page reach bottom
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * Called when user click on the top right corner to share
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
+  },
+  procedure: function(skins) {
+    var i = 0;
+    const pills = [];
+    for (i = 0; i < skins.length; i++) {
+      const skin = skins[i];
+      if (skin.price === this.data.type) {
+        pills.push(skin);
+      }
+    }
+    this.setData({
+      pills: pills,
+    });
+  },
+  pillTab: function(e) {
+    console.log(e);
+    const id = e.currentTarget.id;
+    const selectedPill = this.data.pills[id];
+    wx.setStorageSync('pill_select', JSON.stringify(selectedPill));
+    wx.navigateTo({
+      url: '../write/write',
+    });
   }
 })

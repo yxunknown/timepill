@@ -2,6 +2,8 @@
 //获取应用实例
 const app = getApp()
 
+const http = require('../../utils/http.js');
+
 Page({
   data: {
     motto: 'Hello World',
@@ -9,11 +11,40 @@ Page({
     hasUserInfo: false,
     showDialog: true,
     currentTab: 0,
+    pills: [],
+    start: 0,
   },
   onLoad: function() {
     wx.setNavigationBarTitle({
       title: '膠囊倉庫',
     });
+    var user = wx.getStorageSync('user_info');
+    if (user !== undefined) {
+      this.setData({
+        userInfo: JSON.parse(user),
+        showDialog: false,
+      });
+      wx.showNavigationBarLoading();
+      http.getPills({
+        userId: this.data.userInfo.id,
+        start: this.data.start,
+        limit: 20
+      }, (res, err) => {
+        wx.hideNavigationBarLoading();
+        if (res !== undefined && res.data.code === 200) {
+          // get pills success
+          const start = this.data.start;
+          const pills = this.data.pills;
+          if (res.data.data.pills.length > 0) {
+            pills.push(res.data.data.pills);
+          }
+          this.setData({
+            start: start + 20,
+            pills: pills,
+          });
+        }
+      });
+    }
   },
   getPill: function(e) {
     this.setData({
@@ -32,50 +63,53 @@ Page({
     });
     if (e.detail.errMsg === 'getUserInfo:ok') {
       // get user info success
-      console.log(e);
       const nickname = e.detail.userInfo.nickName;
       const profile = e.detail.userInfo.avatarUrl;
-      console.log(nickname);
-      console.log(profile);
       wx.login({
         success(res) {
           if (res.code) {
-            wx.request({
-              url: 'https://mevur.bennkyou.top:8078/pills/login',
-              data: {
-                code: res.code,
-                'nickname': nickname,
-                'profile': profile
-              },
-              header: {
-                'content-type': 'application/x-www-form-urlencoded'
-              },
-              method: 'POST',
-              success(data) {
-                console.log(data);
-                if (data.data.code === 200) {
+            const data = {
+              code: res.code,
+              'nickname': nickname,
+              'profile': profile
+            };
+            http.login(data, (res, err) => {
+                wx.hideLoading();
+                if (res.data.code === 200) {
                   wx.setStorage({
                     key: 'user_info',
-                    data: JSON.stringify(data.data.data.user),
+                    data: JSON.stringify(res.data.data.user),
                   });
                   //todo other thing
-                  wx.hideLoading();
+                  // loading pill data
+                  wx.showNavigationBarLoading();
+                  http.getPills({
+                    userId: res.data.data.user.id,
+                    start: this.data.start,
+                    limit: 20
+                  }, (res, err) => {
+                    wx.hideNavigationBarLoading();
+                    if (res !== undefined && res.data.code === 200) {
+                      // get pills success
+                      const start = this.data.start;
+                      const pills = this.data.pills;
+                      if (res.data.data.pills.length > 0) {
+                        pills.push(res.data.data.pills);
+                      }
+                      this.setData({
+                        start: start + 20,
+                        pills: pills,
+                      });
+                    }
+                  });
+                  wx.hideLoading()
                 } else {
-                  wx.hideLoading();
                   wx.showToast({
                     title: '登錄失敗',
                     icon: 'none',
                   });
                 }
-              },
-              fail() {
-                wx.hideLoading();
-                wx.showToast({
-                  title: '登錄失敗',
-                  icon: 'none',
-                });
-              }
-            })
+              });         
           } else {
             wx.showToast({
               title: '登錄失敗',
@@ -91,5 +125,31 @@ Page({
       });
     }
   },
-  
+  onPullDownRefresh() {
+    http.getPills({
+      userId: this.data.userInfo.id,
+      start: this.data.start,
+      limit: 20
+    }, (res, err) => {
+      wx.stopPullDownRefresh();
+      if (res !== undefined && res.data.code === 200) {
+        // get pills success
+        const start = this.data.start;
+        const pills = this.data.pills;
+        if (res.data.data.pills.length > 0) {
+          pills.push(res.data.data.pills);
+        } else {
+          wx.showToast({
+            title: '沒有更多膠囊了',
+            icon: 'none',
+            duration: 1000,
+          });
+        }
+        this.setData({
+          start: start + 20,
+          pills: pills,
+        });
+      }
+    });
+  }
 })

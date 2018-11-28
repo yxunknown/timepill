@@ -1,7 +1,7 @@
 <!--pages/selectpill/selectpill.wxml-->
 <view class='select'>
   <text class='title'>選用一粒膠囊</text>
-  <view class='select-item' wx:for="{{pills}}" wx:key='item'>
+  <view class='select-item' wx:for="{{pills}}" wx:key='item' wx:key='index' id='{{index}}' bindtap='pillTab'>
     <view class='pill' style='background-color: {{item.fontColor}}'>
       <view class='pill-bg' style='background-color: {{item.background}};'></view>
     </view>

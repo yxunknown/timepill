@@ -56,7 +56,9 @@ Page({
    * Called when page reach bottom
    */
   onReachBottom: function () {
-
+    wx.showToast({
+      title: '666',
+    });
   },
 
   /**

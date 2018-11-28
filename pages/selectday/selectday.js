@@ -68,11 +68,21 @@ Page({
 
   },
   today: function(e) {
+    wx.setStorageSync('pill_type', 0);
     wx.navigateTo({
       url: '../selectpill/selectpill',
     });
   },
   specialDay: function(e) {
+    wx.setStorageSync('pill_type', 320);
+    wx.navigateTo({
+      url: '../selectpill/selectpill',
+    })
+  },
+  bindDateChange: function(e) {
+    const date = e.detail.value;
+    wx.setStorageSync('pill_date', date);
+    wx.setStorageSync('pill_type', 360);
     wx.navigateTo({
       url: '../selectpill/selectpill',
     })

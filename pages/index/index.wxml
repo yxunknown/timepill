@@ -6,11 +6,12 @@
       <view class='pill-type'>平淡的一天</view>
     </view>
   </view>
+
   <view class='dialog card' wx:if="{{showDialog}}">
     <view class='dialog-item'>
       <view class='dialog-title'>登錄認證</view>
-      <view class='dialog-info'>膠囊數據經過加密處理，需要登錄後進行同步工作。</view>
-      
+      <image src='../../icon/login.png' mode='aspectFit'></image>
+      <view class='dialog-info'>膠囊數據經過加密處理，以確保您數據的安全。</view>
       <button open-type='getUserInfo' bindgetuserinfo='getUserInfo' type='primary' class='wechat-btn'>使用微信登錄</button>
     </view>
   </view>
