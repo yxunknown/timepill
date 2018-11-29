@@ -1,14 +1,14 @@
 {
   "pages": [
-    "pages/index/index",
-    "pages/logs/logs",
     "pages/preview/preview",
+    "pages/index/index",
+    "pages/info/info",
+    "pages/logs/logs",
     "pages/selectpill/selectpill",
     "pages/selectday/selectday",
     "pages/write/write",
     "pages/timemachine/timemachine",
-    "pages/store/store",
-    "pages/info/info"
+    "pages/store/store"
   ],
   "tabBar": {
     "color": "#8a8a8a",

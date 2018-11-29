@@ -14,6 +14,9 @@ Page({
    * Lifecycle function--Called when page load
    */
   onLoad: function(options) {
+    wx.setNavigationBarTitle({
+      title: '投遞膠囊',
+    });
     const pillType = wx.getStorageSync('pill_type');
     this.setData({
       type: pillType,

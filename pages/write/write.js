@@ -1,4 +1,6 @@
 // pages/write/write.js
+
+const http = require('../../utils/http.js');
 Page({
 
   /**
@@ -7,6 +9,7 @@ Page({
   data: {
     pill: {},
     date: '',
+    content: '',
   },
 
   /**
@@ -21,15 +24,14 @@ Page({
       const d = new Date();
       const y = d.getFullYear();
       const m = d.getMonth() + 1;
-      const day = d.getDay();
-      date = y + "-" + m + "-" + d;
+      const day = d.getDate();
+      date = y + "-" + m + "-" + day;
     }
     this.setData({
       date: date,
     });
-    wx.setNavigationBarColor({
-      frontColor: '#ffffff',
-      backgroundColor: this.data.pill.background.toLowerCase(),
+    wx.setNavigationBarTitle({
+      title: '至_' + this.data.date,
     })
   },
 
@@ -74,11 +76,52 @@ Page({
   onReachBottom: function () {
 
   },
-
+  input: function(e) {
+    this.setData({
+      content: e.detail.value,
+    })
+  },
   /**
    * Called when user click on the top right corner to share
    */
   onShareAppMessage: function () {
 
+  },
+  postPill: function(e) {
+    const user = JSON.parse(wx.getStorageSync('user_info'));
+    const date = this.data.date;
+    const skin = this.data.pill;
+    const content = this.data.content;
+    if (content === '') {
+      wx.showToast({
+        title: '內容不能為空',
+        icon: 'none'
+      });
+      return;
+    }
+    const data = {
+      "user.id": user.id,
+      "date": date,
+      "content": content,
+      "skin.id": skin.id
+    };
+    var debris = 4;
+    if (skin.id > 3) {
+      debris = 8;
+    }
+    http.postPill(data, (res, err) => {
+      if (res !== undefined && res.data.code === 200) {
+        wx.showToast({
+          title: '投遞成功，獲得' + debris + '個碎片',
+          icon: 'none'
+        });
+      } else {
+        wx.showToast({
+          title: '投遞失敗，請稍候再試...',
+          icon: 'none'
+        });
+      }
+    });
+    
   }
 })

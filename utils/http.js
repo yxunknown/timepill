@@ -43,6 +43,11 @@ const getPills = (data, onPost) => {
   });
 }
 
+/**
+ * get all skins form server
+ * [pagination]: object {start, limit}
+ * [onPost]: callback function (res, err) => void
+ */
 const getAllSkins = (pagination, onPost) => {
   wx.request({
     url: 'https://mevur.bennkyou.top:8078/pills/skin',
@@ -57,8 +62,51 @@ const getAllSkins = (pagination, onPost) => {
   });
 }
 
+/**
+ * add pills
+ * [data]: object {user.id, date, content, skin.id}
+ * [onPost]: callback function (res, err) => void
+ */
+const postPill = (data, onPost) => {
+  wx.request({
+    url: 'https://mevur.bennkyou.top:8078/pills/pill',
+    method: 'POST',
+    header: {
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    data: data,
+    success(res) {
+      onPost(res, undefined);
+    },
+    fail(err) {
+      onPost(undefined, err);
+    }
+  });
+}
+
+/**
+ * get user info
+ * [data]: object{userId}
+ * [onPost]: callback function (res, err) => void
+ */
+const getUserInfo = (data, onPost) => {
+  wx.request({
+    url: 'https://mevur.bennkyou.top:8078/pills/info',
+    data: data,
+    method: 'GET',
+    success(res) {
+      onPost(res, undefined);
+    },
+    fail(err) {
+      onPost(undefined, err);
+    }
+  });
+}
+
 module.exports = {
   login: login,
   getPills: getPills,
   getAllSkins: getAllSkins,
+  postPill: postPill,
+  getUserInfo: getUserInfo,
 }

@@ -1,1 +1,72 @@
 /* pages/info/info.wxss */
+.wrapper {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background: #F6F6F6;
+}
+.info {
+  width: 96%;
+  margin-left: 2%;
+  margin-top: 5px;
+  height: 60px;
+}
+.info open-data {
+  width: 60px;
+  height: 60px;
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+  float: left;
+}
+.info-name {
+  float: left;
+  margin-left: 5px;
+  font-size: 18px;
+  font-weight: bolder;
+  line-height: 60px;
+}
+.card {
+  border-radius: 2px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 1px 3px rgba(26,26,26,.1);
+}
+.bg {
+  height: 60px;
+  margin-right: 2%;
+  position: absolute;
+}
+.item {
+  width: calc(96% - 10px);
+  margin-left: 2%;
+  margin-top: 10px;
+  padding: 5px;
+  font-size: 14px;
+  height: 30px;
+}
+.title {
+  color: #919191;
+  float: left;
+  font-size: 12px;
+  line-height: 30px;
+}
+.value {
+  line-height: 30px;
+  float: left;
+  margin-left: 10px;
+  font-weight: bold;
+  color: orangered;
+}
+.bot {
+  width: 100%;
+  height: 60px;
+  position: absolute;
+  bottom: 0;
+  line-height: 60px;
+  font-size: 12px;
+  color: #a1a1a1;
+  text-align: center;
+}
+.bot:hover {
+  color: orangered;
+}

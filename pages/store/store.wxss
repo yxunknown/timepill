@@ -63,3 +63,12 @@
   left: 2%;
   opacity: 0.4;
 }
+
+.retry-btn {
+  width: 80%;
+  margin-left: 10%;
+  font-size: 14px;
+  background-color: #0070FF;
+  color: white;
+  margin-top: 100px;
+}

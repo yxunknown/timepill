@@ -1,2 +1,23 @@
 <!--pages/info/info.wxml-->
-<text>pages/info/info.wxml</text>
+<view class='wrapper'>
+  <view class='info card'>
+    <open-data type="userAvatarUrl"></open-data>
+    <view class='info-name'>{{user.nickname}}</view>
+  </view>
+  <view class='card item'>
+    <view class='title'>碎片數</view>
+    <view class='value'>{{debris}}</view>
+  </view>
+  <view class='deris card item'>
+    <view class='title'>擁有膠囊數</view>
+    <view class='value'>{{ownPill}}</view>
+  </view>
+  <view class='deris card item'>
+    <view class='title'>寄送膠囊數</view>
+    <view class='value'>{{sendPill}}</view>
+  </view>
+
+  <view class='bot'>
+  Developed by Hercats🐱 with ❤️
+  </view>
+</view>

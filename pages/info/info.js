@@ -1,11 +1,15 @@
 // pages/info/info.js
+const http = require('../../utils/http.js');
 Page({
 
   /**
    * Page initial data
    */
   data: {
-
+    user: {},
+    debris: 0,
+    ownPill: 0,
+    sendPill: 0,
   },
 
   /**
@@ -14,7 +18,23 @@ Page({
   onLoad: function (options) {
     wx.setNavigationBarTitle({
       title: '個人中心',
-    })
+    });
+    this.setData({
+      user: JSON.parse(wx.getStorageSync('user_info')),
+    });
+    wx.showNavigationBarLoading();
+    http.getUserInfo({
+      userId: this.data.user.id
+    }, (res, err) => {
+      wx.hideNavigationBarLoading();
+      if (res !== undefined && res.data.code === 200) {
+        this.setData({
+          debris: res.data.data.debris.amount,
+          ownPill: res.data.data.user_skin.length,
+          sendPill: res.data.data.pill_count,
+        });
+      }
+    });
   },
 
   /**

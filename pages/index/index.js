@@ -35,8 +35,10 @@ Page({
           // get pills success
           const start = this.data.start;
           const pills = this.data.pills;
-          if (res.data.data.pills.length > 0) {
-            pills.push(res.data.data.pills);
+          var i = 0;
+          const pd = res.data.data.pills;
+          for (i = 0; i < pd.length; i++) {
+            pills.unshift(pd[i]);
           }
           this.setData({
             start: start + 20,
@@ -93,8 +95,10 @@ Page({
                       // get pills success
                       const start = this.data.start;
                       const pills = this.data.pills;
-                      if (res.data.data.pills.length > 0) {
-                        pills.push(res.data.data.pills);
+                      var i = 0;
+                      const pd = res.data.data.pills;
+                      for (i = 0; i < pd.length; i++) {
+                        pills.unshift(pd[i]);
                       }
                       this.setData({
                         start: start + 20,
@@ -137,6 +141,11 @@ Page({
         const start = this.data.start;
         const pills = this.data.pills;
         if (res.data.data.pills.length > 0) {
+          const pd = res.data.data.pills;
+          var i = 0;
+          for (i = 0; i < pd.length; i++) {
+            pills.unshift(pd[i]);
+          }
           pills.push(res.data.data.pills);
         } else {
           wx.showToast({
