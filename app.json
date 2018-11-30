@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/preview/preview",
     "pages/index/index",
+    "pages/preview/preview",
     "pages/info/info",
     "pages/logs/logs",
     "pages/selectpill/selectpill",
@@ -28,8 +28,8 @@
       },
       {
         "pagePath": "pages/selectday/selectday",
-        "iconPath": "icon/write.png",
-        "selectedIconPath": "icon/write.png"
+        "iconPath": "icon/pills.png",
+        "selectedIconPath": "icon/pills.png"
       },
       {
         "pagePath": "pages/store/store",

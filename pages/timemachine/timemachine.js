@@ -1,4 +1,6 @@
 // pages/timemachine/timemachine.js
+const date = require('../../utils/date.js');
+const http = require('../../utils/http.js');
 Page({
 
   /**
@@ -7,6 +9,7 @@ Page({
   data: {
     img: '../../icon/time_machine.png',
     times: 3,
+    pill: {},
   },
 
   /**
@@ -19,7 +22,23 @@ Page({
     });
     wx.setNavigationBarTitle({
       title: '時光機',
-    })
+    });
+    const date = wx.getStorageSync('time_machine_date');
+    var times = 0;
+    if (date === undefined || date === '') {
+      times = 3;
+      wx.setStorageSync('time_machine_date', this.getToday());
+      wx.setStorageSync('time_machine_times', times);
+    } else {
+      if (date !== this.getToday()) {
+        times = 3
+      } else {
+        times = wx.getStorageSync('time_machine_times');
+      }
+    }
+    this.setData({
+      times: times,
+    });
   },
 
   /**
@@ -71,8 +90,63 @@ Page({
 
   },
   getPill: function (e) {
-    this.setData({
-      img: '../../icon/load.gif',
-    });
+    const time = this.data.times;
+    if (time <= 0) {
+      wx.showToast({
+        title: '今日的穿越次數已用盡，請明天再來吧~~~',
+        icon: 'none'
+      });
+      return;
+    } else {
+      this.setData({
+        img: '../../icon/load.gif',
+      });
+      const user = JSON.parse(wx.getStorageSync('user_info'));
+      http.timeMachine({
+        userId: user.id,
+      }, (res, err) => {
+        this.setData({
+          img: '../../icon/time_machine.png',
+        })
+        if (res !== undefined && res.data.code === 200) {
+          this.setData({
+            times: time - 1,
+          });
+          wx.setStorageSync('time_machine_times', time - 1);
+          const p = res.data.data.pill;
+          if (p === '') {
+            wx.showToast({
+              title: '什麼都沒遇見...',
+              icon: 'none',
+            });
+          }
+          this.setData({
+            pill: p,
+          });
+        } else {
+          wx.showToast({
+            title: '發生錯誤，請重試',
+            icon: 'none',
+          });
+        }
+      })
+    }
   },
+  preview: function(e) {
+    if (this.data.pill.id === undefined) {
+      return;
+    } else {
+      wx.setStorageSync('preview_pill', this.data.pill);
+      wx.navigateTo({
+        url: '../preview/preview',
+      });
+    }
+  },
+  getToday: function() {
+    const date = new Date()
+    const year = date.getFullYear()
+    const month = date.getMonth() + 1
+    const day = date.getDate();
+    return year + '-' + month + '-' + day
+  }
 })

@@ -1,6 +1,6 @@
 <!--pages/write/write.wxml-->
 <view class='input-container' style='background-color: {{pill.background}}'>
-  <textarea class='input' maxlength='-1' placeholder='想要說點什麼呢?' placeholder-style='color: {{pill.fontColor}}4d' style='color: {{pill.fontColor}}' bindinput='input'></textarea>
+  <textarea class='input' maxlength='-1' placeholder='想要說點什麼呢?' placeholder-style='color: {{pill.fontColor}}4d' style='color: {{pill.fontColor}}' bindinput='input' value='{{content}}'></textarea>
   <button class='save-btn' bindtap='postPill'>✓</button>
 </view>
 

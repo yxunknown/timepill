@@ -115,9 +115,12 @@ Page({
           title: '投遞成功，獲得' + debris + '個碎片',
           icon: 'none'
         });
+        this.setData({
+          content: '',
+        });
       } else {
         wx.showToast({
-          title: '投遞失敗，請稍候再試...',
+          title: '投遞失敗,' + res.data.info,
           icon: 'none'
         });
       }

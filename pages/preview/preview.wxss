@@ -14,12 +14,12 @@
   font-size: 12px;
 }
 .image {
-  height: 60px;
+  width: 100%;
   overflow: hidden;
   z-index: -100;
   position: absolute;
   left: 2%;
-  opacity: 0.4;
+  opacity: 0.3;
 }
 .pill {
   margin: 0;

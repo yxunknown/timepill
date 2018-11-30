@@ -100,5 +100,42 @@ Page({
         });
       }
     });
+  },
+  purse: function(e) {
+   const id = e.currentTarget.id;
+   const pill = this.data.pills[id];
+   const user = JSON.parse(wx.getStorageSync('user_info'));
+    wx.showModal({
+      title: '提示',
+      content: '是否使用 ' + pill.price + ' 個碎片合成\"' + pill.name + '\"',
+      confirmText: '確認',
+      cancelText: '取消',
+      success(res) {
+        if (res.confirm) {
+          wx.showLoading({
+            title: '合成中，請稍候',
+          });
+          http.purseSkin(pill.id, user.id, (res, err) => {
+            wx.hideLoading();
+            if (res !== undefined && res.data.code === 200) {
+              wx.showToast({
+                title: '合成成功，恭喜你獲得' + pill.name,
+                icon: 'none',
+              });
+            } else {
+              wx.showToast({
+                title: '合成失敗,' + res.data.info,
+                icon: 'none',
+              });
+            }
+          });
+        } else if (res.cancel) {
+         
+        }
+      }
+    });
+    // http.purseSkin(pill.id, user.id, (res, err) => {
+
+    // });
   }
 })

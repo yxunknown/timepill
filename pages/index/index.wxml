@@ -1,6 +1,6 @@
 <!--index.wxml-->
 <view>
-  <view class='pill-tab' bindscrolltoupper='upper' wx:for='{{pills}}' wx:key='item' wx:key='index' id='{{index}}'>
+  <view class='pill-tab' bindscrolltoupper='upper' wx:for='{{pills}}' wx:key='item' wx:key='index' id='{{index}}' bindtap='preview'>
     <view class='pill' hover-start-time='10' hover-stay-time='200'>
       <view class='pill-title'>{{item.date}}</view>
       <view class='pill-type'>{{item.skin.name}}</view>

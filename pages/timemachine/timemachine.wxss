@@ -31,3 +31,13 @@
   position: absolute;
   bottom: 20px;
 }
+
+.pills {
+  color: white;
+  width: calc(80% - 10px);
+  margin-left: 10%;
+  border-radius: 2px;
+  margin-top: 20px;
+  font-size: 14px;
+  padding: 5px;
+}

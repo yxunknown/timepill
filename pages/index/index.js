@@ -19,33 +19,12 @@ Page({
       title: '膠囊倉庫',
     });
     var user = wx.getStorageSync('user_info');
-    if (user !== undefined) {
+    if (user !== undefined && user !== '') {
       this.setData({
         userInfo: JSON.parse(user),
         showDialog: false,
       });
-      wx.showNavigationBarLoading();
-      http.getPills({
-        userId: this.data.userInfo.id,
-        start: this.data.start,
-        limit: 20
-      }, (res, err) => {
-        wx.hideNavigationBarLoading();
-        if (res !== undefined && res.data.code === 200) {
-          // get pills success
-          const start = this.data.start;
-          const pills = this.data.pills;
-          var i = 0;
-          const pd = res.data.data.pills;
-          for (i = 0; i < pd.length; i++) {
-            pills.unshift(pd[i]);
-          }
-          this.setData({
-            start: start + 20,
-            pills: pills,
-          });
-        }
-      });
+      this.getPill(0);
     }
   },
   getPill: function(e) {
@@ -63,6 +42,7 @@ Page({
     wx.showLoading({
       title: '正在登錄中',
     });
+    const that = this;
     if (e.detail.errMsg === 'getUserInfo:ok') {
       // get user info success
       const nickname = e.detail.userInfo.nickName;
@@ -82,31 +62,12 @@ Page({
                     key: 'user_info',
                     data: JSON.stringify(res.data.data.user),
                   });
+                  that.setData({
+                    userInfo: res.data.data.user,
+                  });
                   //todo other thing
                   // loading pill data
-                  wx.showNavigationBarLoading();
-                  http.getPills({
-                    userId: res.data.data.user.id,
-                    start: this.data.start,
-                    limit: 20
-                  }, (res, err) => {
-                    wx.hideNavigationBarLoading();
-                    if (res !== undefined && res.data.code === 200) {
-                      // get pills success
-                      const start = this.data.start;
-                      const pills = this.data.pills;
-                      var i = 0;
-                      const pd = res.data.data.pills;
-                      for (i = 0; i < pd.length; i++) {
-                        pills.unshift(pd[i]);
-                      }
-                      this.setData({
-                        start: start + 20,
-                        pills: pills,
-                      });
-                    }
-                  });
-                  wx.hideLoading()
+                  that.getPill(0);
                 } else {
                   wx.showToast({
                     title: '登錄失敗',
@@ -130,29 +91,32 @@ Page({
     }
   },
   onPullDownRefresh() {
+    this.getPill(this.data.start);
+  },
+  preview: function(e) {
+    const id = e.currentTarget.id;
+    const pill = this.data.pills[id];
+    wx.setStorageSync('preview_pill', JSON.stringify(pill));
+    wx.navigateTo({
+      url: '../preview/preview',
+    });
+  },
+  getPill: function(start) {
+    wx.showNavigationBarLoading();
     http.getPills({
       userId: this.data.userInfo.id,
-      start: this.data.start,
+      start: start,
       limit: 20
     }, (res, err) => {
-      wx.stopPullDownRefresh();
+      wx.hideNavigationBarLoading();
       if (res !== undefined && res.data.code === 200) {
         // get pills success
         const start = this.data.start;
         const pills = this.data.pills;
-        if (res.data.data.pills.length > 0) {
-          const pd = res.data.data.pills;
-          var i = 0;
-          for (i = 0; i < pd.length; i++) {
-            pills.unshift(pd[i]);
-          }
-          pills.push(res.data.data.pills);
-        } else {
-          wx.showToast({
-            title: '沒有更多膠囊了',
-            icon: 'none',
-            duration: 1000,
-          });
+        var i = 0;
+        const pd = res.data.data.pills;
+        for (i = 0; i < pd.length; i++) {
+          pills.unshift(pd[i]);
         }
         this.setData({
           start: start + 20,

@@ -5,17 +5,20 @@ Page({
    * Page initial data
    */
   data: {
-
+    pill: {},
   },
 
   /**
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
-    wx.setNavigationBarColor({
-      frontColor: '#ffffff',
-      backgroundColor: '#ff0000',
-    })
+    wx.setNavigationBarTitle({
+      title: '膠囊郵局',
+    });
+    const pill = JSON.parse(wx.getStorageSync('preview_pill'));
+    this.setData({
+      pill: pill,
+    });
   },
 
   /**

@@ -103,10 +103,44 @@ const getUserInfo = (data, onPost) => {
   });
 }
 
+/**
+ * time machine, to get a random pill
+ * [data]: object {userId}
+ * [onPost]: callback function (res, err) => voids
+ */
+const timeMachine = (data, onPost) => {
+  wx.request({
+    url: 'https://mevur.bennkyou.top:8078/pills/pill/timemachine',
+    method: 'GET',
+    data: data,
+    success(res) {
+      onPost(res, undefined);
+    },
+    fail(err) {
+      onPost(undefined, err);
+    }
+  });
+}
+
+const purseSkin = (skinId, userId, onPost) => {
+  wx.request({
+    url: 'https://mevur.bennkyou.top:8078/pills/skin/' + skinId + '/' + userId,
+    method: 'POST',
+    success(res) {
+      onPost(res, undefined);
+    },
+    fail(err) {
+      onPost(undefined, err);
+    }
+  });
+}
+
 module.exports = {
   login: login,
   getPills: getPills,
   getAllSkins: getAllSkins,
   postPill: postPill,
   getUserInfo: getUserInfo,
+  timeMachine: timeMachine,
+  purseSkin: purseSkin,
 }
