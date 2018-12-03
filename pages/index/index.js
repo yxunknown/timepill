@@ -24,7 +24,6 @@ Page({
         userInfo: JSON.parse(user),
         showDialog: false,
       });
-      this.getPill(0);
     }
   },
   getPill: function(e) {
@@ -34,6 +33,13 @@ Page({
   },
   onReady: function() {
 
+  },
+  onShow: function() {
+    this.setData({
+      start: 0,
+      pills: [],
+    });
+    this.getPill(0);
   },
   getUserInfo: function(e) {
     this.setData({
